@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Pharmabot - Landing Page</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{asset('project-images/pharmabot-logo.jpg')}}" />
     <!-- Custom Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,8 +39,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="#top">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,19 +57,17 @@
                             <div class="fs-3 fw-light text-muted">Welcome Back!</div>
                             <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Pharmabot</span>
                             </h1>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-2">
                                 @if (Route::has('login'))
                                     @auth
-                                        <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder">Dashboard</a>
+                                        <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder">Dashboard</a>
                                     @else
-                                        <select class="form-control text-center fw-bold border-primary btn-lg px-5 py-3 fs-6 fw-bolder" id="roleSelect">
-                                            <option value="" disabled selected>Login</option>
-                                            <option value="login">Admin</option>
-                                            <option value="login">Student</option>
-                                        </select>
+                                        @if (Route::has('login'))
+                                            <a href="{{ url('login') }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder ">Login</a>
+                                        @endif
 
                                         @if (Route::has('register'))
-                                            <a href="{{ url('register') }}" class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder">Register</a>
+                                            <a href="{{ url('register') }}" class="btn btn-outline-dark btn-lg px-5 fs-6 fw-bolder">Register</a>
                                         @endif
                                     @endauth
                                 @endif
@@ -80,7 +77,7 @@
                     <div class="col-xxl-7">
                         <div class="d-flex justify-content-center mt-5 mt-xxl-0">
                             <div class="profile bg-gradient-primary-to-secondary">
-                                <img class="profile-img" src="{{ asset('landing-assets/profile.png') }}" alt="Profile Image" />
+                                <img class="profile-img" src="{{ asset('project-images/sti-about1.jpg') }}" alt="Profile Image" />
                             </div>
                         </div>
                     </div>
@@ -100,8 +97,11 @@
                             <div class="card-body p-0">
                                 <div class="d-flex align-items-center">
                                     <div class="p-5" style="text-align: justify;">
-                                        <p class=""><strong>Pharmabot</strong> is an innovative solution designed to
-                                            make purchasing medicines fast, easy, and accessible.</p>
+                                        <p>
+                                            <strong>Pharmabot</strong> is an innovative solution designed to
+                                            make purchasing medicines fast, easy, and accessible.
+                                        </p>
+
                                         <p class="text-muted">
                                             Inspired by the simplicity of a slot machine, Pharmabot allows customers to
                                             insert money, select their desired medicine, and instantly receive it — all
@@ -115,9 +115,10 @@
                                             everyone.<br>
                                         </p>
                                         <div class="d-flex justify-content-center fs-2 gap-4 mt-4">
-                                            <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
+                                            {{-- <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
                                             <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
-                                            <a class="text-gradient" href="#!"><i class="bi bi-github"></i></a>
+                                            <a class="text-gradient" href="#!"><i class="bi bi-github"></i></a> --}}
+                                            <img src="{{asset('project-images/sti-logo.png')}}" alt="" style="height: 80px">
                                         </div>
                                     </div>
                                     <img class="img-fluid" src="{{ asset('project-images/sti-about1.jpg') }}" alt="..." style="width: 350px; height: 400px;" />
@@ -163,15 +164,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="{{ asset('landing-assets/js/scripts.js') }}"></script>
-
-    <script>
-        document.getElementById('roleSelect').addEventListener('change', function () {
-            const selectedUrl = this.value;
-            if (selectedUrl) {
-                window.location.href = selectedUrl;
-            }
-        });
-    </script>
 </body>
 
 </html>

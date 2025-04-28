@@ -36,7 +36,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-12">
                     <div class="form-group position-relative has-icon-left mb-3">
                         <input type="text" class="form-control form-control-lg @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name">

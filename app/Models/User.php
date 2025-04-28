@@ -26,7 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'user_type',
-        'approved_by',
         'approved_at',
     ];
 
@@ -49,6 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'approved_at' => 'datetime',
             'password' => 'hashed',
             'user_type' => Usertype::class,
         ];

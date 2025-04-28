@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\Usertype;
 use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class IsApproved
 {
     /**
      * Handle an incoming request.
@@ -17,9 +16,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Perform Before
-        if (Auth::check() && Auth::user()->user_type === Usertype::Admin) {
-            return $next($request);
+        if (Auth::check() && is_null(Auth::user()->approved_at)) {
+            Auth::logout();
+            return redirect()->route('login')->with('toast', [
+                'icon' => 'warning',
+                'title' => 'Wait for Admin Approval',
+            ]);
         }
 
         return $next($request);

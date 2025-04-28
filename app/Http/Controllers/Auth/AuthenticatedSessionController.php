@@ -34,6 +34,7 @@ class AuthenticatedSessionController extends Controller
         $credentials = [
             'school_id' => $request->school_id,
             'password' => $request->password,
+            'user_type' => $request->user_type,
         ];
 
         if (Auth::attempt($credentials, $remember)) {
@@ -44,8 +45,9 @@ class AuthenticatedSessionController extends Controller
                 Usertype::Student => redirect()->route('student.dashboard'),
             };
         } else {
-            return back()->withErrors([
-                'school_id' => 'The provided credentials do not match our records.',
+            return back()->with('toast', [
+                'icon' => 'error',
+                'title' => 'Incorrect credentials.',
             ])->onlyInput('school_id');
         }
     }

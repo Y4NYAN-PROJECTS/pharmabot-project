@@ -35,7 +35,7 @@
                         @endif
                     </div>
 
-                    <button class="btn btn-primary btn-block btn-md shadow-lg mt-4">Log in</button>
+                    <button class="btn btn-primary btn-block btn-md shadow-lg mt-4" type="submit">Log in</button>
                 </div>
             </div>
         </form>
