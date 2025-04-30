@@ -22,7 +22,10 @@ class IsAdmin
             return $next($request);
         }
 
-        return $next($request);
+        return back()->with('toast', [
+            'icon' => 'error',
+            'title' => 'Access Denied. Unauthorized!',
+        ]);
     }
 
 }

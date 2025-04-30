@@ -59,17 +59,25 @@
                             </h1>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-2">
                                 @if (Route::has('login'))
-                                    @auth
-                                        <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder">Dashboard</a>
-                                    @else
-                                        @if (Route::has('login'))
-                                            <a href="{{ url('login') }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder ">Login</a>
-                                        @endif
+                                                            @auth
+                                                                                        @php
+                                                                                            $dashboardRoute = match (auth()->user()->user_type) {
+                                                                                                \App\Enums\UserType::Admin   => route('admin.dashboard'),
+                                                                                                \App\Enums\UserType::Student => route('student.dashboard'),
+                                                                                                default                      => route('login'),
+                                                                                            };
+                                                                                        @endphp
 
-                                        @if (Route::has('register'))
-                                            <a href="{{ url('register') }}" class="btn btn-outline-dark btn-lg px-5 fs-6 fw-bolder">Register</a>
-                                        @endif
-                                    @endauth
+                                                                                        <a href="{{ $dashboardRoute }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder">Dashboard</a>
+                                                            @else
+                                                                @if (Route::has('login'))
+                                                                    <a href="{{ url('login') }}" class="btn btn-primary btn-lg px-5 fs-6 fw-bolder ">Login</a>
+                                                                @endif
+
+                                                                @if (Route::has('register'))
+                                                                    <a href="{{ url('register') }}" class="btn btn-outline-dark btn-lg px-5 fs-6 fw-bolder">Register</a>
+                                                                @endif
+                                                            @endauth
                                 @endif
                             </div>
                         </div>
