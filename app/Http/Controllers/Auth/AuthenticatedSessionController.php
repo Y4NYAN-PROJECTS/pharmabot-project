@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             return match ($user->user_type) {
-                Usertype::Admin   => redirect()->route('admin.dashboard'),
+                Usertype::Admin => redirect()->route('admin.dashboard'),
                 Usertype::Student => redirect()->route('student.dashboard'),
             };
         } else {

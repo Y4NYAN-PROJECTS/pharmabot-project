@@ -15,7 +15,8 @@
             @include('index.reusables.radio')
 
             {{-- [ Hidden Input/s ] --}}
-            <input type="hidden" name="usertype" value="admin">
+            <input type="hidden" name="usertype" id="student">
+
 
             <div class="row">
                 {{-- [ Reusable/s ] --}}

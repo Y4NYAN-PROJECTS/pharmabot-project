@@ -7,9 +7,9 @@ Route::get('/', function () {
     return view('index.pages.landing');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'approved'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified', 'approved'])->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'approved'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
