@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->rememberToken();
         });
 
@@ -39,6 +40,16 @@ return new class extends Migration {
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::create('medicine', function (Blueprint $table) {
+            $table->id();
+            $table->string('medicine_code', 100);
+            $table->string('title');
+            $table->text('description');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
     }
 
     /**

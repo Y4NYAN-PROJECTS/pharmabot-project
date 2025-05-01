@@ -3,7 +3,8 @@
         <div class="sidebar-header position-relative">
             <div class="">
                 <div class="text-center">
-                    <a href="index.html"><img src="{{asset('project-images/pharmabot-logo.jpg')}}" alt="Logo" style="width: auto; height: 100px;" /></a>
+                    <a href="index.html"><img src="{{asset('project-images/pharmabot-logo.jpg')}}" alt="Logo"
+                            style="width: auto; height: 100px;" /></a>
                     <h6 class="mt-3 text-center">Pharmabot System</h6>
                 </div>
 
@@ -27,14 +28,14 @@
                 <li class="sidebar-title">Accounts</li>
 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.admin-list') }}" class="sidebar-link">
                         <i class="bi bi-shield-shaded"></i>
                         <span>Admin</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.student-list') }}" class="sidebar-link">
                         <i class="bi bi-mortarboard"></i>
                         <span>Student</span>
                     </a>
@@ -44,7 +45,7 @@
                 <li class="sidebar-title">Manage</li>
 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('admin.medicine') }}" class="sidebar-link">
                         <i class="bi bi-capsule"></i>
                         <span>Medicine</span>
                     </a>

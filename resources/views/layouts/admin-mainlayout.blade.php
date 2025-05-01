@@ -19,8 +19,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
 
+
     <link rel="stylesheet" href="{{ asset('/mazer-assets/extensions/filepond/filepond.css') }}">
-    <link rel="stylesheet" href="{{ asset('/mazer-assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/mazer-assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}">
     <link rel="stylesheet" href="{{ asset('/mazer-assets/extensions/toastify-js/src/toastify.css') }}">
 
 </head>
@@ -54,13 +56,20 @@
     <script src="{{ asset('mazer-assets/static/js/pages/sweetalert2.js') }}"></script>
 
     <script src="{{ asset('mazer-assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script src="{{ asset('mazer-assets/static/js/pages/simple-datatables.js') }}"></script>
+    <script
+        src="{{ asset('mazer-assets/static/js/pages/simple-datatables.js') }}"></script>
 
 
-    <script src="{{ asset('mazer-assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}"></script>
-    <script src="{{ asset('mazer-assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}"></script>
-    <script src="{{ asset('mazer-assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
-    <script src="{{ asset('mazer-assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}"></script>
+
+
+           <script
+        src="{{ asset('mazer-assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}"></script>
+    <script
+        src="{{ asset('mazer-assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}"></script>
+    <script
+        src="{{ asset('mazer-assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('mazer-assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}"></script>
     <script src="{{ asset('mazer-assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}"></script>
     <script src="{{ asset('mazer-assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}"></script>
     <script src="{{ asset('mazer-assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}"></script>
@@ -84,19 +93,18 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-    </script>
-
-    @if (session('toast'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const toastData = @json(session('toast'));
-                Toast.fire({
-                    icon: toastData.icon,
-                    title: toastData.title
+</script>
+@if (session('toast'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastData = @json(session(key: 'toast'));
+            Toast.fire({
+                icon: toastData.icon,
+                title: toastData.title
                 });
             });
         </script>
-    @endif
+@endif
 </body>
 
 </html>
