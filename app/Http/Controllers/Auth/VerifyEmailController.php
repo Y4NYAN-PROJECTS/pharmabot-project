@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\Usertype;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -14,16 +15,25 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false) . '?verified=1');
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return $this->redirectBasedOnUserType($user);
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
         }
 
-        return redirect()->intended(route('dashboard', absolute: false) . '?verified=1');
+        return $this->redirectBasedOnUserType($user);
     }
 
+    protected function redirectBasedOnUserType($user): RedirectResponse
+    {
+        return match ($user->user_type) {
+            Usertype::Admin => redirect()->route('admin.dashboard', ['verified' => 1]),
+            Usertype::Student => redirect()->route('student.dashboard', ['verified' => 1]),
+            default => redirect()->url('/', ['verified' => 1]),
+        };
+    }
 }
-
