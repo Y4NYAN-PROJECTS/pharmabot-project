@@ -15,10 +15,16 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    public function landing()
+    public function list()
+    {
+        $admins = User::where('user_type', 'admin')->whereNotNull('approved_at')->get();
+        return view('admin.pages.admin', compact('admins'));
+    }
+
+    public function pending()
     {
         $admins = User::where('user_type', 'admin')->where('approved_at', NULL)->get();
-        return view('admin.pages.admin', compact('admins'));
+        return view('admin.pages.admin-pending', compact('admins'));
     }
 
     public function approve($id)

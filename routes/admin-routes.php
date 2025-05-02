@@ -31,7 +31,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 // Student List
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/student-list', [StudentController::class, 'landing'])->name('admin.student-list');
+    Route::get('/student-list', [StudentController::class, 'list'])->name('admin.student-list');
+});
+
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Route::get('/student-pending', [StudentController::class, 'pending'])->name('admin.student-pending');
 });
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
@@ -44,7 +48,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 // Admin List
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/admin-list', [AdminController::class, 'landing'])->name('admin.admin-list');
+    Route::get('/admin-list', [AdminController::class, 'list'])->name('admin.admin-list');
+});
+
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Route::get('/admin-pending', [AdminController::class, 'pending'])->name('admin.admin-pending');
 });
 
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {

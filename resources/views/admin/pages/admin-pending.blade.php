@@ -15,6 +15,7 @@
                                 <th>School ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,6 +24,28 @@
                                     <td class="text-dark fw-bold">{{ $admin->school_id }}</td>
                                     <td class="text-dark"> {{ $admin->full_name }} </td>
                                     <td class="text-dark"> {{ $admin->email }} </td>
+                                    <td class="text-dark">
+                                        <div class="d-flex">
+
+                                            <form action="{{ route('admin.admin-approve', $admin->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-outline-primary me-2">
+                                                    Approve
+                                                </button>
+                                            </form>
+
+                                            <form action="{{ route('admin.admin-delete', $admin->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this account?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    Decline
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

@@ -40,7 +40,22 @@
                         <span>Student</span>
                     </a>
                 </li>
+                {{-- [ Pending Accounts ] --}}
+                <li class="sidebar-title">Pending Accounts</li>
 
+                <li class="sidebar-item">
+                    <a href="{{ route('admin.admin-pending') }}" class="sidebar-link">
+                        <i class="bi bi-shield-shaded"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="{{ route('admin.student-pending') }}" class="sidebar-link">
+                        <i class="bi bi-mortarboard"></i>
+                        <span>Student</span>
+                    </a>
+                </li>
                 {{-- [ Manage ] --}}
                 <li class="sidebar-title">Manage</li>
 

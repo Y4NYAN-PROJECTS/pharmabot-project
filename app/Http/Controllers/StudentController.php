@@ -15,11 +15,18 @@ use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
-    public function landing()
+    public function list()
     {
-        $students = User::where('user_type', 'student')->where('approved_at', NULL)->get();
+        $students = User::where('user_type', 'student')->whereNotNull('approved_at')->get();
         return view('admin.pages.students', compact('students'));
     }
+
+    public function pending()
+    {
+        $students = User::where('user_type', 'student')->where('approved_at', NULL)->get();
+        return view('admin.pages.students-pending', compact('students'));
+    }
+
 
     public function approve($id)
     {
