@@ -8,10 +8,10 @@
         <div class="card">
             <div class="card-body">
                 @if($medicines->isNotEmpty())
-                <div class="col-auto">
-                            <i class="bi bi-journal-plus fs-4 me-2" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#medicineModal"></i>
-                        </div>
+                    <div class="col-auto mb-3">
+                        <i class="bi bi-journal-plus fs-4 me-2" type="button" data-bs-toggle="modal"
+                            data-bs-target="#medicineModal"></i>
+                    </div>
 
                     <table class="table table-striped" id="table1">
                         <thead>
@@ -26,7 +26,6 @@
                                 <tr>
                                     <td class="fw-bold">{{ $medicine->title }}</td>
                                     <td class="text-justify">
-                                        {{ $medicine->description }}
                                         {{ \Illuminate\Support\Str::limit($medicine->description, 50) }}
                                     </td>
                                     <td>
@@ -35,7 +34,6 @@
                                                 data-bs-target="#editMedicineModal{{ $medicine->id }}">
                                                 Update
                                             </a>
-
                                             <form action="{{ route('admin.medicine-delete', $medicine->id) }}" method="POST"
                                                 onsubmit="return confirm('Are you sure you want to delete this medicine?');">
                                                 @csrf
@@ -47,6 +45,74 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Update Medicine Modal -->
+                                <div class="modal fade" id="editMedicineModal{{ $medicine->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle{{ $medicine->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle{{ $medicine->id }}">Edit
+                                                    Medicine</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+
+                                            <form action="{{ route('admin.medicine-update', $medicine->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group position-relative has-icon-left mb-3">
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg @error('update_title') is-invalid @enderror"
+                                                                    name="update_title" value="{{ $medicine->title }}"
+                                                                    placeholder="Medicine Name">
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-capsule"></i>
+                                                                </div>
+                                                                @error('update_title')
+                                                                    <div class="invalid-feedback">
+                                                                        <i class="bx bx-radio-circle"></i>
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="form-group position-relative has-icon-left mb-3">
+                                                                <textarea
+                                                                    class="form-control form-control-lg @error('update_description') is-invalid @enderror"
+                                                                    name="update_description" placeholder="Medicine Description"
+                                                                    rows="5">{{ $medicine->description }}</textarea>
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-card-text"></i>
+                                                                </div>
+                                                                @error('update_description')
+                                                                    <div class="invalid-feedback">
+                                                                        <i class="bx bx-radio-circle"></i>
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="m-0">
+                                                    <div class="mt-3 text-end">
+                                                        <button type="button" class="btn btn-light-secondary"
+                                                            data-bs-dismiss="modal">
+                                                            <span class="d-none d-sm-block">Close</span>
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary ms-1">
+                                                            <span class="d-none d-sm-block">Update</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -61,15 +127,13 @@
         </div>
     </section>
 
-
-    <!--Add Medicine Modal -->
+    <!-- Add Medicine Modal -->
     <div class="modal fade" id="medicineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Medicine
-                    </h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Medicine</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
@@ -78,9 +142,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-
                             <div class="col-12">
-                                {{-- Medicine Name --}}
                                 <div class="form-group position-relative has-icon-left mb-3">
                                     <input type="text"
                                         class="form-control form-control-lg @error('title') is-invalid @enderror"
@@ -90,13 +152,11 @@
                                     </div>
                                     @error('title')
                                         <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
-                                {{-- Description --}}
                                 <div class="form-group position-relative has-icon-left mb-3">
                                     <textarea
                                         class="form-control form-control-lg @error('description') is-invalid @enderror"
@@ -107,7 +167,6 @@
                                     </div>
                                     @error('description')
                                         <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -117,12 +176,9 @@
                         <hr class="m-0">
                         <div class="mt-3 text-end">
                             <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Close</span>
                             </button>
-
-                            <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-                                <i class="bx bx-check d-block d-sm-none"></i>
+                            <button type="submit" class="btn btn-primary ms-1">
                                 <span class="d-none d-sm-block">Submit</span>
                             </button>
                         </div>
@@ -132,76 +188,7 @@
         </div>
     </div>
 
-    <!-- Update Medicine Modal -->
-    {{-- <div class="modal fade" id="editMedicineModal{{ $medicine->id }}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle{{ $medicine->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle{{ $medicine->id }}">Edit Medicine</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-
-                <form action="{{ route('admin.medicine-update', $medicine->id) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group position-relative has-icon-left mb-3">
-                                    <input type="text"
-                                        class="form-control form-control-lg @error('update_title') is-invalid @enderror"
-                                        name="update_title" value="{{ $medicine->title }}" placeholder="Medicine Name">
-                                    <div class="form-control-icon">
-                                        <i class="bi bi-capsule"></i>
-                                    </div>
-                                    @error('update_title')
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group position-relative has-icon-left mb-3">
-                                    <textarea
-                                        class="form-control form-control-lg @error('update_description') is-invalid @enderror"
-                                        name="update_description" placeholder="Medicine Description"
-                                        rows="5">{{ $medicine->description }}</textarea>
-                                    <div class="form-control-icon">
-                                        <i class="bi bi-card-text"></i>
-                                    </div>
-                                    @error('update_description')
-                                        <div class="invalid-feedback">
-                                            <i class="bx bx-radio-circle"></i>
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="m-0">
-                        <div class="mt-3 text-end">
-                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Close</span>
-                            </button>
-
-                            <button type="submit" class="btn btn-primary ms-1">
-                                <i class="bx bx-check d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Update</span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-
-
     <script>
-        new DataTable('#medicine');
+        new DataTable('#table1');
     </script>
 @endsection
