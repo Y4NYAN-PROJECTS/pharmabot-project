@@ -18,29 +18,18 @@ class StudentController extends Controller
     public function list()
     {
         $students = User::where('user_type', 'student')->whereNotNull('approved_at')->get();
-        return view('admin.pages.students', compact('students'));
+        return view('admin.pages.account-students', compact('students'));
     }
 
-    public function pending()
-    {
-        $students = User::where('user_type', 'student')->where('approved_at', NULL)->get();
-        return view('admin.pages.students-pending', compact('students'));
-    }
-
-
-    public function approve($id)
+    public function softDelete($id)
     {
         User::where('id', $id)->update([
-            'approved_at' => Carbon::now()
+            'deleted_at' => Carbon::now()
         ]);
 
-        return redirect()->route('admin.account-list');
+        return back()->with('toast', [
+            'icon' => 'success',
+            'title' => 'Account Deleted',
+        ])->onlyInput('school_id');
     }
-
-    public function delete($id)
-    {
-        Medicine::where('id', $id)->delete();
-        return redirect()->route('admin.account-list');
-    }
-
 }

@@ -36,6 +36,7 @@
     </div>
 
     @yield('scripts') {{-- Optional section for page-specific scripts --}}
+     <script src="assets/static/js/components/dark.js"></script>
     <script src="{{ asset('mazer-assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         const Toast = Swal.mixin({

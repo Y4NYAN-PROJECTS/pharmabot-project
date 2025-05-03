@@ -7,9 +7,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\Medicine;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+
+use App\Models\Medicine;
 
 class MedicineController extends Controller
 {
@@ -53,5 +54,4 @@ class MedicineController extends Controller
         ]);
         return redirect()->route('admin.medicine');
     }
-
 }

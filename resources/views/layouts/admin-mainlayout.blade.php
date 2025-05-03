@@ -15,9 +15,8 @@
     <link rel="stylesheet" href="{{ asset('/mazer-assets/compiled/css/iconly.css') }}">
 
     <!-- Datatables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <link rel="stylesheet" href="{{ asset('/mazer-assets/extensions/simple-datatables/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('/mazer-assets/compiled/css/table-datatable.css')}}">
 
 
     <link rel="stylesheet" href="{{ asset('/mazer-assets/extensions/filepond/filepond.css') }}">
@@ -28,7 +27,7 @@
 </head>
 
 <body>
-    <script src="{{ asset('mazer-assets/static/js/initTheme.js') }}"></script>
+    {{-- <script src="{{ asset('mazer-assets/static/js/initTheme.js') }}"></script> --}}
     <div id="app">
         @include('admin.components.sidenav')
 
@@ -45,6 +44,10 @@
             </div>
         </div>
     </div>
+
+    
+    <script src="{{ asset('mazerassets/extensions/simple-datatables/umd/simple-datatables.js')}}"></script>
+    <script src="{{ asset('mazerassets/static/js/pages/simple-datatables.js')}}"></script>
 
     <script src="{{ asset('mazer-assets/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('mazer-assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
@@ -93,7 +96,22 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-</script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const ongoingElements = document.querySelectorAll('.on-going');
+
+            ongoingElements.forEach(function (element) {
+                element.addEventListener('click', function (event) {
+                    event.preventDefault(); 
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Feature is still ongoing.'
+                    });
+                });
+            });
+        });
+    </script>
+
 @if (session('toast'))
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -101,9 +119,9 @@
             Toast.fire({
                 icon: toastData.icon,
                 title: toastData.title
-                });
             });
-        </script>
+        });     
+    </script>
 @endif
 </body>
 

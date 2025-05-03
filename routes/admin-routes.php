@@ -1,64 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MedicineController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\PendingController;
 
 Route::middleware(['auth', 'verified', 'admin', 'approved'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-});
 
-// Medicine
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    // [ Medicine ]
     Route::get('/medicine', [MedicineController::class, 'medicinePage'])->name('admin.medicine');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/medicine/add-medicine', [MedicineController::class, 'add'])->name('admin.medicine-add');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('/medicine/delete-medicine/{id}', [MedicineController::class, 'delete'])->name('admin.medicine-delete');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::patch('/medicine/update-medicine/{id}', [MedicineController::class, 'update'])->name('admin.medicine-update');
-});
 
-// Student List
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/student-list', [StudentController::class, 'list'])->name('admin.student-list');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/student-pending', [StudentController::class, 'pending'])->name('admin.student-pending');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::patch('/student-approve/{id}', [StudentController::class, 'approve'])->name('admin.student-approve');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::delete('/student-delete/{id}', [StudentController::class, 'delete'])->name('admin.student-delete');
-});
-
-// Admin List
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    // [ Accounts ]
+    //-- Admin
     Route::get('/admin-list', [AdminController::class, 'list'])->name('admin.admin-list');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/admin-pending', [AdminController::class, 'pending'])->name('admin.admin-pending');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::patch('/admin-approve/{id}', [AdminController::class, 'approve'])->name('admin.admin-approve');
-});
-
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::delete('/admin-delete/{id}', [AdminController::class, 'delete'])->name('admin.admin-delete');
+    //-- Student
+    Route::get('/student-list', [StudentController::class, 'list'])->name('admin.student-list');
+    //-- Pending
+    Route::get('/pending-list', [PendingController::class, 'list'])->name('admin.pending-list');
+    //-- Functions
+    Route::patch('/admin/approve/{id}', [PendingController::class, 'approve'])->name('admin.admin-approve');
+    Route::patch('/admin/decine/{id}', [PendingController::class, 'decline'])->name('admin.admin-decline');
+    // Soft Delete
+    Route::patch('/admin/delete/{id}', [AdminController::class, 'softDelete'])->name('admin.admin-delete');
+    Route::patch('/student/delete/{id}', [StudentController::class, 'softDelete'])->name('admin.student-delete');
 });

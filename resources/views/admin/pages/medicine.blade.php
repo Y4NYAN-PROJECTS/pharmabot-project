@@ -7,21 +7,13 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
                 @if($medicines->isNotEmpty())
-                    <div class="row d-flex align-items-center justify-content-between">
-                        <div class="col-auto">
-                            <h3 class="mb-0">Medicine</h3>
-                        </div>
-                        <div class="col-auto">
+                <div class="col-auto">
                             <i class="bi bi-journal-plus fs-4 me-2" type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#medicineModal"></i>
-
                         </div>
-                    </div>
 
-                    <hr>
-                    <table class="table table-striped" id="medicine">
+                    <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -32,14 +24,14 @@
                         <tbody>
                             @foreach($medicines as $medicine)
                                 <tr>
-                                    <td class="text-dark fw-bold">{{ $medicine->title }}</td>
-                                    <td class="text-dark text-justify">
+                                    <td class="fw-bold">{{ $medicine->title }}</td>
+                                    <td class="text-justify">
                                         {{ $medicine->description }}
                                         {{ \Illuminate\Support\Str::limit($medicine->description, 50) }}
                                     </td>
-                                    <td class="text-dark">
+                                    <td>
                                         <div class="d-flex">
-                                            <a href="#" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                                            <a href="#" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
                                                 data-bs-target="#editMedicineModal{{ $medicine->id }}">
                                                 Update
                                             </a>
@@ -48,13 +40,12 @@
                                                 onsubmit="return confirm('Are you sure you want to delete this medicine?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="submit" class="btn btn-sm btn-danger">
                                                     Delete
                                                 </button>
                                             </form>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>
@@ -142,7 +133,7 @@
     </div>
 
     <!-- Update Medicine Modal -->
-    <div class="modal fade" id="editMedicineModal{{ $medicine->id }}" tabindex="-1" role="dialog"
+    {{-- <div class="modal fade" id="editMedicineModal{{ $medicine->id }}" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle{{ $medicine->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -207,7 +198,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <script>

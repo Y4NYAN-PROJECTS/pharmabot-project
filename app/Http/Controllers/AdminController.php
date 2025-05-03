@@ -18,28 +18,18 @@ class AdminController extends Controller
     public function list()
     {
         $admins = User::where('user_type', 'admin')->whereNotNull('approved_at')->get();
-        return view('admin.pages.admin', compact('admins'));
+        return view('admin.pages.account-admin', compact('admins'));
     }
 
-    public function pending()
-    {
-        $admins = User::where('user_type', 'admin')->where('approved_at', NULL)->get();
-        return view('admin.pages.admin-pending', compact('admins'));
-    }
-
-    public function approve($id)
+    public function softDelete($id)
     {
         User::where('id', $id)->update([
-            'approved_at' => Carbon::now()
+            'deleted_at' => Carbon::now()
         ]);
 
-        return redirect()->route('admin.admin-list');
+        return back()->with('toast', [
+            'icon' => 'success',
+            'title' => 'Account Deleted',
+        ])->onlyInput('school_id');
     }
-
-    public function delete($id)
-    {
-        Medicine::where('id', $id)->delete();
-        return redirect()->route('admin.admin-list');
-    }
-
 }
